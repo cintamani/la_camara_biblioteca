@@ -3,7 +3,10 @@ class Book < ApplicationRecord
   has_many :genres, through: :book_genres
 
   validates :title, presence: true
+  validates :genres, presence: { message: "debe seleccionar al menos un género" }
   validate :isbns_are_unique_across_books
+
+  before_save :include_parent_genres
 
   # Serialize isbns as JSON array
   serialize :isbns, coder: JSON
@@ -118,5 +121,10 @@ class Book < ApplicationRecord
         errors.add(:isbns, "el ISBN #{isbn} ya existe en otro libro: #{existing.title}")
       end
     end
+  end
+
+  def include_parent_genres
+    parent_ids = genres.filter_map(&:parent_id)
+    self.genre_ids = (genre_ids + parent_ids).uniq
   end
 end
