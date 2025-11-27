@@ -1,0 +1,21 @@
+<h1>Añadir Nuevo Libro</h1>
+
+<div class="isbn-lookup-section">
+  <h2>Añadir rápido por ISBN</h2>
+  <p>Introduce un ISBN para obtener automáticamente los detalles del libro desde Google Books.</p>
+
+  <%= form_with url: lookup_isbn_books_path, method: :post, class: "isbn-lookup-form", data: { turbo: false } do |form| %>
+    <div class="form-inline">
+      <%= form.text_field :isbn,
+          placeholder: "Introduce ISBN (ej. 9780141439518)",
+          class: "isbn-input" %>
+      <%= form.submit "Buscar", class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="divider">
+  <span>o introduce los datos manualmente</span>
+</div>
+
+<%= render "form", book: @book %>

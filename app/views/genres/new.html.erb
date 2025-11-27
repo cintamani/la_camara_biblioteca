@@ -1,0 +1,7 @@
+<h1><%= @genre.parent_id? ? "Añadir Subgénero" : "Añadir Género Principal" %></h1>
+
+<% if @genre.parent_id? %>
+  <p class="subtitle">Añadiendo subgénero bajo: <strong><%= Genre.find(@genre.parent_id).name %></strong></p>
+<% end %>
+
+<%= render "form", genre: @genre %>

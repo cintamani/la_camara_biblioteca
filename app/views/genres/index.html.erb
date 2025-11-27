@@ -1,0 +1,56 @@
+<div class="genres-header">
+  <h1>Gestionar Géneros</h1>
+  <%= link_to "Añadir Género Principal", new_genre_path, class: "btn btn-primary" %>
+</div>
+
+<% if @parent_genres.any? %>
+  <div class="genres-list">
+    <% @parent_genres.each do |parent| %>
+      <div class="genre-group">
+        <div class="genre-parent">
+          <div class="genre-info">
+            <h2><%= parent.name %></h2>
+            <span class="book-count"><%= parent.books.count %> <%= parent.books.count == 1 ? "libro" : "libros" %></span>
+          </div>
+          <div class="genre-actions">
+            <%= link_to "Añadir Subgénero", new_genre_path(parent_id: parent.id), class: "btn btn-small" %>
+            <%= link_to "Editar", edit_genre_path(parent), class: "btn btn-small" %>
+            <%= button_to "Eliminar", parent,
+                method: :delete,
+                class: "btn btn-small btn-danger",
+                data: { turbo_confirm: "¿Estás seguro? Esto también eliminará todos los subgéneros." } %>
+          </div>
+        </div>
+
+        <% if parent.children.any? %>
+          <div class="genre-children">
+            <% parent.children.sorted.each do |child| %>
+              <div class="genre-child">
+                <div class="genre-info">
+                  <span class="child-name"><%= child.name %></span>
+                  <span class="book-count"><%= child.books.count %> <%= child.books.count == 1 ? "libro" : "libros" %></span>
+                </div>
+                <div class="genre-actions">
+                  <%= link_to "Editar", edit_genre_path(child), class: "btn btn-small" %>
+                  <%= button_to "Eliminar", child,
+                      method: :delete,
+                      class: "btn btn-small btn-danger",
+                      data: { turbo_confirm: "¿Estás seguro de que quieres eliminar este género?" } %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="empty-state">
+    <p>No hay géneros definidos aún.</p>
+    <p><%= link_to "Crea tu primer género", new_genre_path %> para comenzar.</p>
+  </div>
+<% end %>
+
+<div class="back-link">
+  <%= link_to "Volver al Archivo de Libros", books_path %>
+</div>

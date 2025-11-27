@@ -1,0 +1,33 @@
+<%= form_with model: genre, class: "genre-form" do |form| %>
+  <% if genre.errors.any? %>
+    <div class="error-messages">
+      <h3><%= genre.errors.count %> <%= genre.errors.count == 1 ? "error impide" : "errores impiden" %> guardar este género:</h3>
+      <ul>
+        <% genre.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, "Nombre" %>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <% if @parent_genres.present? || genre.parent_id.present? %>
+    <div class="form-group">
+      <%= form.label :parent_id, "Género Principal" %>
+      <%= form.select :parent_id,
+          options_from_collection_for_select(@parent_genres, :id, :name, genre.parent_id),
+          { include_blank: "Ninguno (este es un género principal)" },
+          {} %>
+      <small>Deja en blanco para crear un género principal, o selecciona un padre para crear un subgénero.</small>
+    </div>
+  <% end %>
+
+  <div class="form-actions">
+    <%= form.submit genre.new_record? ? "Crear Género" : "Actualizar Género", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", genres_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

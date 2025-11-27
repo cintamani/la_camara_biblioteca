@@ -1,0 +1,76 @@
+<div class="books-header">
+  <h1>Archivo de Libros</h1>
+  <div class="header-actions">
+    <%= link_to "Gestionar Géneros", genres_path, class: "btn btn-secondary" %>
+    <%= link_to "Añadir Libro", new_book_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<div class="search-section">
+  <%= form_with url: books_path, method: :get, class: "search-form" do |form| %>
+    <div class="search-fields">
+      <div class="form-group">
+        <%= form.text_field :search,
+            value: params[:search],
+            placeholder: "Buscar por título, autor o ISBN..." %>
+      </div>
+
+      <div class="form-group">
+        <%= form.select :genre, grouped_genre_options(@parent_genres, params[:genre]) %>
+      </div>
+
+      <%= form.submit "Buscar", class: "btn btn-secondary" %>
+
+      <% if params[:search].present? || params[:genre].present? %>
+        <%= link_to "Limpiar", books_path, class: "btn btn-link" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<% if @books.any? %>
+  <div class="books-count">
+    Mostrando <%= @books.count %> <%= @books.count == 1 ? "libro" : "libros" %>
+  </div>
+
+  <div class="books-list">
+    <% @books.each do |book| %>
+      <div class="book-card">
+        <div class="book-info">
+          <h2><%= link_to book.title, book %></h2>
+          <% if book.author.present? %>
+            <p class="author">por <%= book.author %></p>
+          <% end %>
+          <% if book.isbn.present? %>
+            <p class="isbn">ISBN: <%= book.isbn %></p>
+          <% end %>
+          <% if book.genres.any? %>
+            <div class="genres">
+              <% book.genres.each do |genre| %>
+                <%= link_to genre.name,
+                    books_path(genre: genre.name),
+                    class: "genre-tag" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class="book-actions">
+          <%= link_to "Editar", edit_book_path(book), class: "btn btn-small" %>
+          <%= button_to "Eliminar", book,
+              method: :delete,
+              class: "btn btn-small btn-danger",
+              data: { turbo_confirm: "¿Estás seguro de que quieres eliminar este libro?" } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="empty-state">
+    <p>No se encontraron libros en el archivo.</p>
+    <% if params[:search].present? || params[:genre].present? %>
+      <p>Intenta ajustar los criterios de búsqueda o <%= link_to "ver todos los libros", books_path %>.</p>
+    <% else %>
+      <p><%= link_to "Añade tu primer libro", new_book_path %> para comenzar.</p>
+    <% end %>
+  </div>
+<% end %>

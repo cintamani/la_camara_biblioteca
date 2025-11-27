@@ -1,0 +1,42 @@
+<div class="book-detail">
+  <div class="book-header">
+    <h1><%= @book.title %></h1>
+    <div class="book-meta">
+      <% if @book.author.present? %>
+        <p class="author">por <strong><%= @book.author %></strong></p>
+      <% end %>
+      <% if @book.isbn.present? %>
+        <p class="isbn">ISBN: <%= @book.isbn %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @book.genres.any? %>
+    <div class="book-genres">
+      <h3>Géneros</h3>
+      <div class="genres">
+        <% @book.genres.each do |genre| %>
+          <%= link_to genre.name,
+              books_path(genre: genre.name),
+              class: "genre-tag" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="book-timestamps">
+    <p>Añadido: <%= l(@book.created_at, format: :long) %></p>
+    <% if @book.updated_at != @book.created_at %>
+      <p>Última actualización: <%= l(@book.updated_at, format: :long) %></p>
+    <% end %>
+  </div>
+
+  <div class="book-actions">
+    <%= link_to "Editar", edit_book_path(@book), class: "btn btn-primary" %>
+    <%= button_to "Eliminar", @book,
+        method: :delete,
+        class: "btn btn-danger",
+        data: { turbo_confirm: "¿Estás seguro de que quieres eliminar este libro del archivo?" } %>
+    <%= link_to "Volver al Archivo", books_path, class: "btn btn-secondary" %>
+  </div>
+</div>

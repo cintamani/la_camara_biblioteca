@@ -1,0 +1,506 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+:root {
+  --primary-color: #2563eb;
+  --danger-color: #dc2626;
+  --text-color: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --bg-light: #f9fafb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  background: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.btn:hover {
+  background: var(--bg-light);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: var(--bg-light);
+}
+
+.btn-danger {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.btn-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+}
+
+/* Flash messages */
+.flash {
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.flash-notice {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.flash-alert {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.form-group small {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-inline {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-inline input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+}
+
+.error-messages {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.error-messages h3 {
+  color: #991b1b;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #991b1b;
+}
+
+/* Books Header */
+.books-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Search Section */
+.search-section {
+  background: var(--bg-light);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-fields {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.search-fields .form-group {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 150px;
+}
+
+.search-fields input,
+.search-fields select {
+  width: 100%;
+}
+
+/* Books List */
+.books-count {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.books-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.book-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+}
+
+.book-card h2 {
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.book-info .author {
+  color: var(--text-muted);
+  margin: 0.25rem 0;
+}
+
+.book-info .isbn {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0.25rem 0;
+}
+
+.book-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Genres / Tags */
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.genre-tag {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background: #e0e7ff;
+  color: #3730a3;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+}
+
+.genre-tag:hover {
+  background: #c7d2fe;
+  text-decoration: none;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+}
+
+/* ISBN Lookup */
+.isbn-lookup-section {
+  background: var(--bg-light);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.isbn-lookup-section h2 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.isbn-lookup-section p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--text-muted);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.divider span {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+}
+
+/* Book Detail */
+.book-detail {
+  max-width: 600px;
+}
+
+.book-header {
+  margin-bottom: 1.5rem;
+}
+
+.book-meta {
+  color: var(--text-muted);
+}
+
+.book-genres {
+  margin-bottom: 1.5rem;
+}
+
+.book-genres h3 {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.book-timestamps {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.book-timestamps p {
+  margin: 0.25rem 0;
+}
+
+/* Genre Management */
+.genres-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.genres-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.genre-group {
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.genre-parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-light);
+}
+
+.genre-parent h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.genre-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.book-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: white;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.genre-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.genre-children {
+  border-top: 1px solid var(--border-color);
+}
+
+.genre-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem 0.75rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.genre-child:last-child {
+  border-bottom: none;
+}
+
+.child-name {
+  font-size: 0.875rem;
+}
+
+.child-name::before {
+  content: "└ ";
+  color: var(--text-muted);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Genre Checkboxes */
+.genre-checkboxes {
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  padding: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.genre-checkbox-group {
+  margin-bottom: 0.75rem;
+}
+
+.genre-checkbox-group:last-child {
+  margin-bottom: 0;
+}
+
+.parent-genre-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.parent-genre-checkbox input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+}
+
+.child-genre-checkboxes {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.child-genre-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.child-genre-checkbox input[type="checkbox"] {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.no-genres {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 0;
+}

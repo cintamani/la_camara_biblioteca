@@ -1,0 +1,70 @@
+<%= form_with model: book, class: "book-form" do |form| %>
+  <% if book.errors.any? %>
+    <div class="error-messages">
+      <h3><%= book.errors.count %> <%= book.errors.count == 1 ? "error impide" : "errores impiden" %> guardar este libro:</h3>
+      <ul>
+        <% book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title, "Título" %>
+    <%= form.text_field :title, required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :author, "Autor" %>
+    <%= form.text_field :author %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :isbn, "ISBN" %>
+    <%= form.text_field :isbn %>
+  </div>
+
+  <% if @parent_genres.present? && @parent_genres.any? %>
+    <div class="form-group">
+      <label>Géneros</label>
+      <div class="genre-checkboxes">
+        <% @parent_genres.each do |parent| %>
+          <div class="genre-checkbox-group">
+            <div class="parent-genre-checkbox">
+              <%= form.check_box :genre_ids,
+                  { multiple: true, checked: book.genre_ids.include?(parent.id) },
+                  parent.id,
+                  nil %>
+              <%= form.label "genre_ids_#{parent.id}", parent.name %>
+            </div>
+            <% if parent.children.any? %>
+              <div class="child-genre-checkboxes">
+                <% parent.children.sorted.each do |child| %>
+                  <div class="child-genre-checkbox">
+                    <%= form.check_box :genre_ids,
+                        { multiple: true, checked: book.genre_ids.include?(child.id) },
+                        child.id,
+                        nil %>
+                    <%= form.label "genre_ids_#{child.id}", child.name %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <small><%= link_to "Gestionar géneros", genres_path %></small>
+    </div>
+  <% else %>
+    <div class="form-group">
+      <label>Géneros</label>
+      <p class="no-genres">No hay géneros definidos aún. <%= link_to "Crear géneros", genres_path %> para categorizar tus libros.</p>
+    </div>
+  <% end %>
+
+  <div class="form-actions">
+    <%= form.submit book.new_record? ? "Crear Libro" : "Actualizar Libro", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", books_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
