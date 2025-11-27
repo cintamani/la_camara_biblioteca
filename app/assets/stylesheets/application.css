@@ -581,51 +581,89 @@ a:hover {
   gap: 0.5rem;
 }
 
-/* Genre Checkboxes */
-.genre-checkboxes {
+/* Genre Selector (Collapsible) */
+.genre-hint {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.genre-selector {
   border: 1px solid var(--border-color);
-  border-radius: 0.375rem;
-  padding: 1rem;
-  max-height: 300px;
-  overflow-y: auto;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
-.genre-checkbox-group {
-  margin-bottom: 0.75rem;
+.genre-section {
+  border-bottom: 1px solid var(--border-color);
 }
 
-.genre-checkbox-group:last-child {
-  margin-bottom: 0;
+.genre-section:last-child {
+  border-bottom: none;
 }
 
-.parent-genre-checkbox {
+.genre-section-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--gold);
+  border: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.genre-section-header:hover {
+  background: var(--navy-light);
+}
+
+.genre-section-icon {
+  transition: transform 0.2s;
+  font-size: 0.75rem;
+}
+
+.genre-section.expanded .genre-section-icon {
+  transform: rotate(90deg);
+}
+
+.genre-section-content {
+  display: none;
+  padding: 0.75rem 1rem;
+  background: var(--bg-cream);
+}
+
+.genre-section.expanded .genre-section-content {
+  display: block;
+}
+
+.genre-option {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 500;
+  padding: 0.375rem 0;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: color 0.2s;
 }
 
-.parent-genre-checkbox input[type="checkbox"] {
+.genre-option:hover {
+  color: var(--emerald-dark);
+}
+
+.genre-option input[type="checkbox"] {
   width: 1rem;
   height: 1rem;
+  accent-color: var(--emerald);
 }
 
-.child-genre-checkboxes {
-  margin-left: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-.child-genre-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
-  font-size: 0.875rem;
-}
-
-.child-genre-checkbox input[type="checkbox"] {
-  width: 0.875rem;
-  height: 0.875rem;
+.genre-option input[type="checkbox"]:checked + span {
+  color: var(--emerald-dark);
+  font-weight: 500;
 }
 
 .no-genres {

@@ -28,29 +28,35 @@
   <% if @parent_genres.present? && @parent_genres.any? %>
     <div class="form-group">
       <label>Géneros</label>
-      <div class="genre-checkboxes">
+      <p class="genre-hint">Haz clic en una categoría para ver sus sub-géneros</p>
+      <div class="genre-selector" data-controller="genre-selector">
         <% @parent_genres.each do |parent| %>
-          <div class="genre-checkbox-group">
-            <div class="parent-genre-checkbox">
-              <%= form.check_box :genre_ids,
-                  { multiple: true, checked: book.genre_ids.include?(parent.id) },
-                  parent.id,
-                  nil %>
-              <%= form.label "genre_ids_#{parent.id}", parent.name %>
-            </div>
-            <% if parent.children.any? %>
-              <div class="child-genre-checkboxes">
+          <div class="genre-section" data-genre-selector-target="parentSection">
+            <button type="button" class="genre-section-header" data-action="click->genre-selector#toggle">
+              <span class="genre-section-title"><%= parent.name %></span>
+              <span class="genre-section-icon">▸</span>
+            </button>
+            <div class="genre-section-content">
+              <% if parent.children.any? %>
                 <% parent.children.sorted.each do |child| %>
-                  <div class="child-genre-checkbox">
+                  <label class="genre-option">
                     <%= form.check_box :genre_ids,
                         { multiple: true, checked: book.genre_ids.include?(child.id) },
                         child.id,
                         nil %>
-                    <%= form.label "genre_ids_#{child.id}", child.name %>
-                  </div>
+                    <span><%= child.name %></span>
+                  </label>
                 <% end %>
-              </div>
-            <% end %>
+              <% else %>
+                <label class="genre-option">
+                  <%= form.check_box :genre_ids,
+                      { multiple: true, checked: book.genre_ids.include?(parent.id) },
+                      parent.id,
+                      nil %>
+                  <span><%= parent.name %></span>
+                </label>
+              <% end %>
+            </div>
           </div>
         <% end %>
       </div>

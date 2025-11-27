@@ -5,8 +5,11 @@
       <% if @book.author.present? %>
         <p class="author">por <strong><%= @book.author %></strong></p>
       <% end %>
-      <% if @book.isbn.present? %>
-        <p class="isbn">ISBN: <%= @book.isbn %></p>
+      <% if @book.isbns.present? && @book.isbns.any? %>
+        <p class="isbn">
+          <%= @book.isbns.count == 1 ? "ISBN" : "ISBNs" %>:
+          <%= @book.isbns_display %>
+        </p>
       <% end %>
     </div>
   </div>
