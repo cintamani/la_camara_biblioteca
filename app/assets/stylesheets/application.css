@@ -10,12 +10,26 @@
  */
 
 :root {
-  --primary-color: #2563eb;
-  --danger-color: #dc2626;
-  --text-color: #1f2937;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-  --bg-light: #f9fafb;
+  /* Colors extracted from logo */
+  --gold: #c9a227;
+  --gold-light: #d4b84b;
+  --gold-dark: #a68519;
+  --emerald: #4a9c6d;
+  --emerald-light: #7bc78f;
+  --emerald-dark: #2d5a47;
+  --navy: #1e2a38;
+  --navy-light: #2d3e50;
+
+  /* Semantic colors */
+  --primary-color: var(--emerald);
+  --primary-hover: var(--emerald-dark);
+  --accent-color: var(--gold);
+  --danger-color: #b91c1c;
+  --text-color: var(--navy);
+  --text-muted: #5a6a7a;
+  --border-color: #d4d9de;
+  --bg-light: #f5f7f6;
+  --bg-cream: #faf8f3;
 }
 
 * {
@@ -36,9 +50,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  margin: 0 -2rem 1.5rem;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-bottom: 3px solid var(--gold);
 }
 
 .logo-link {
@@ -52,16 +67,24 @@ body {
   text-decoration: none;
 }
 
+.logo-link:hover .site-title {
+  color: var(--gold-light);
+}
+
 .logo {
   height: 50px;
   width: auto;
   border-radius: 0.375rem;
+  border: 2px solid var(--gold);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .site-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: var(--gold);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: color 0.2s;
 }
 
 .site-nav {
@@ -70,7 +93,7 @@ body {
 }
 
 .site-nav a {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
   padding: 0.5rem 0;
   border-bottom: 2px solid transparent;
@@ -78,9 +101,9 @@ body {
 }
 
 .site-nav a:hover {
-  color: var(--primary-color);
+  color: var(--gold);
   text-decoration: none;
-  border-bottom-color: var(--primary-color);
+  border-bottom-color: var(--gold);
 }
 
 .content {
@@ -89,6 +112,23 @@ body {
 
 h1, h2, h3 {
   margin-top: 0;
+}
+
+h1 {
+  color: var(--navy);
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 2px;
 }
 
 a {
@@ -125,7 +165,20 @@ a:hover {
 }
 
 .btn-primary:hover {
-  background: #1d4ed8;
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.btn-accent {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.btn-accent:hover {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
 }
 
 .btn-secondary {
@@ -245,10 +298,11 @@ a:hover {
 
 /* Search Section */
 .search-section {
-  background: var(--bg-light);
+  background: var(--bg-cream);
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
+  border: 1px solid #e8e4d9;
 }
 
 .search-fields {
@@ -289,6 +343,13 @@ a:hover {
   padding: 1rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.book-card:hover {
+  border-color: var(--emerald-light);
+  box-shadow: 0 2px 8px rgba(74, 156, 109, 0.1);
 }
 
 .book-card h2 {
@@ -324,14 +385,16 @@ a:hover {
 .genre-tag {
   display: inline-block;
   padding: 0.125rem 0.5rem;
-  background: #e0e7ff;
-  color: #3730a3;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  color: var(--emerald-dark);
   border-radius: 9999px;
   font-size: 0.75rem;
+  border: 1px solid var(--emerald-light);
 }
 
 .genre-tag:hover {
-  background: #c7d2fe;
+  background: linear-gradient(135deg, var(--emerald-light) 0%, var(--emerald) 100%);
+  color: white;
   text-decoration: none;
 }
 
@@ -439,7 +502,16 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: var(--bg-light);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: white;
+}
+
+.genre-parent h2 a {
+  color: var(--gold);
+}
+
+.genre-parent h2 a:hover {
+  color: var(--gold-light);
 }
 
 .genre-parent h2 {
@@ -455,10 +527,11 @@ a:hover {
 
 .book-count {
   font-size: 0.75rem;
-  color: var(--text-muted);
-  background: white;
+  color: var(--navy);
+  background: var(--gold-light);
   padding: 0.125rem 0.5rem;
   border-radius: 9999px;
+  font-weight: 500;
 }
 
 .genre-actions {
@@ -571,6 +644,8 @@ a:hover {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    margin: 0 -1rem 1.5rem;
+    padding: 1rem;
   }
 
   .logo-link {
@@ -593,6 +668,11 @@ a:hover {
     align-items: stretch;
   }
 
+  h1::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .search-fields {
     flex-direction: column;
   }
@@ -605,5 +685,20 @@ a:hover {
   .book-actions {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .genre-parent {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .genre-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .genre-actions {
+    justify-content: center;
   }
 }
