@@ -14,6 +14,7 @@ class BooksController < ApplicationController
     end
 
     @books = @books.order(created_at: :desc)
+    @pagy, @books = pagy(@books)
     @parent_genres = Genre.roots.sorted.includes(:children)
   end
 

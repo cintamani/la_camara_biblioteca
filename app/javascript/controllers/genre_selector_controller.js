@@ -21,12 +21,17 @@ export default class extends Controller {
     section.classList.toggle("expanded")
   }
 
+  // Normalize text: lowercase and remove accents
+  normalize(text) {
+    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  }
+
   search() {
-    const query = this.searchInputTarget.value.toLowerCase().trim()
+    const query = this.normalize(this.searchInputTarget.value.trim())
 
     this.parentSectionTargets.forEach(section => {
       const options = section.querySelectorAll("[data-genre-selector-target='option']")
-      const parentName = section.querySelector(".genre-section-title").textContent.toLowerCase()
+      const parentName = this.normalize(section.querySelector(".genre-section-title").textContent)
       let hasMatch = false
 
       if (query === "") {
@@ -39,7 +44,7 @@ export default class extends Controller {
       } else {
         // Filter options
         options.forEach(opt => {
-          const name = opt.textContent.toLowerCase()
+          const name = this.normalize(opt.textContent)
           if (name.includes(query)) {
             opt.classList.remove("hidden")
             hasMatch = true

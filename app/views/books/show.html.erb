@@ -3,7 +3,7 @@
     <h1><%= @book.title %></h1>
     <div class="book-meta">
       <% if @book.author.present? %>
-        <p class="author">por <strong><%= @book.author %></strong></p>
+        <p class="author">por <strong><%= link_to @book.author, books_path(search: @book.author) %></strong></p>
       <% end %>
       <% if @book.isbns.present? && @book.isbns.any? %>
         <p class="isbn">

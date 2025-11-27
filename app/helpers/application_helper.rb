@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def grouped_genre_options(parent_genres, selected = nil)
     options = [[ "Todos los Géneros", "" ]]
 

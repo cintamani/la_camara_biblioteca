@@ -30,7 +30,7 @@
 
 <% if @books.any? %>
   <div class="books-count">
-    Mostrando <%= @books.count %> <%= @books.count == 1 ? "libro" : "libros" %>
+    Mostrando <%= @pagy.from %>-<%= @pagy.to %> de <%= @pagy.count %> <%= @pagy.count == 1 ? "libro" : "libros" %>
   </div>
   <div class="books-list">
     <% @books.each do |book| %>
@@ -39,7 +39,7 @@
           <h2><%= link_to book.title, book %></h2>
 
           <% if book.author.present? %>
-            <p class="author">por <%= book.author %></p>
+            <p class="author">por <%= link_to book.author, books_path(search: book.author) %></p>
           <% end %>
 
           <% if book.isbns.present? && book.isbns.any? %>
@@ -70,6 +70,10 @@
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div class="pagination-container">
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
   </div>
 <% else %>
   <div class="empty-state">
