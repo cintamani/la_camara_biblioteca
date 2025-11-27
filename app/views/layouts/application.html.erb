@@ -24,6 +24,17 @@
   </head>
 
   <body>
+    <header class="site-header">
+      <%= link_to root_path, class: "logo-link" do %>
+        <%= image_tag "logo.jpg", alt: "La Cámara Biblioteca", class: "logo" %>
+        <span class="site-title">La Cámara Biblioteca</span>
+      <% end %>
+      <nav class="site-nav">
+        <%= link_to "Libros", books_path %>
+        <%= link_to "Géneros", genres_path %>
+      </nav>
+    </header>
+
     <% if notice.present? %>
       <div class="flash flash-notice"><%= notice %></div>
     <% end %>
@@ -31,6 +42,8 @@
       <div class="flash flash-alert"><%= alert %></div>
     <% end %>
 
-    <%= yield %>
+    <main class="content">
+      <%= yield %>
+    </main>
   </body>
 </html>

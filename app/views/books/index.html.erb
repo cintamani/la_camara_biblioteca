@@ -1,7 +1,7 @@
 <div class="books-header">
   <h1>Archivo de Libros</h1>
+
   <div class="header-actions">
-    <%= link_to "Gestionar Géneros", genres_path, class: "btn btn-secondary" %>
     <%= link_to "Añadir Libro", new_book_path, class: "btn btn-primary" %>
   </div>
 </div>
@@ -32,18 +32,20 @@
   <div class="books-count">
     Mostrando <%= @books.count %> <%= @books.count == 1 ? "libro" : "libros" %>
   </div>
-
   <div class="books-list">
     <% @books.each do |book| %>
       <div class="book-card">
         <div class="book-info">
           <h2><%= link_to book.title, book %></h2>
+
           <% if book.author.present? %>
             <p class="author">por <%= book.author %></p>
           <% end %>
+
           <% if book.isbn.present? %>
             <p class="isbn">ISBN: <%= book.isbn %></p>
           <% end %>
+
           <% if book.genres.any? %>
             <div class="genres">
               <% book.genres.each do |genre| %>
@@ -54,8 +56,10 @@
             </div>
           <% end %>
         </div>
+
         <div class="book-actions">
           <%= link_to "Editar", edit_book_path(book), class: "btn btn-small" %>
+
           <%= button_to "Eliminar", book,
               method: :delete,
               class: "btn btn-small btn-danger",
@@ -67,10 +71,16 @@
 <% else %>
   <div class="empty-state">
     <p>No se encontraron libros en el archivo.</p>
+
     <% if params[:search].present? || params[:genre].present? %>
-      <p>Intenta ajustar los criterios de búsqueda o <%= link_to "ver todos los libros", books_path %>.</p>
+      <p>
+        Intenta ajustar los criterios de búsqueda o
+        <%= link_to "ver todos los libros", books_path %>.
+      </p>
     <% else %>
-      <p><%= link_to "Añade tu primer libro", new_book_path %> para comenzar.</p>
+      <p>
+        <%= link_to "Añade tu primer libro", new_book_path %> para comenzar.
+      </p>
     <% end %>
   </div>
 <% end %>
