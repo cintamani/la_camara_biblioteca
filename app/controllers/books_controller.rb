@@ -87,6 +87,9 @@ class BooksController < ApplicationController
       return render :new, status: :unprocessable_entity
     end
 
+    # Preserve the ISBN in the form even if lookup fails
+    @book.isbn = params[:isbn]
+
     # Check if ISBN already exists
     existing = Book.find_by_isbn(params[:isbn])
     if existing

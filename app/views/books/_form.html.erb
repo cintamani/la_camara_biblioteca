@@ -1,7 +1,12 @@
 <%= form_with model: book, class: "book-form" do |form| %>
   <% if book.errors.any? %>
     <div class="error-messages">
-      <h3><%= book.errors.count %> <%= book.errors.count == 1 ? "error impide" : "errores impiden" %> guardar este libro:</h3>
+      <h3>
+        <%= book.errors.count %>
+        <%= book.errors.count == 1 ? "error impide" : "errores impiden" %>
+        guardar este libro:
+      </h3>
+
       <ul>
         <% book.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -20,6 +25,8 @@
     <%= form.text_field :author %>
   </div>
 
+  <div class="form-group"><%= book.title + ", " + book.author %></div>
+
   <div class="form-group">
     <%= form.label :isbn, "ISBN" %>
     <%= form.text_field :isbn %>
@@ -28,38 +35,58 @@
   <% if @parent_genres.present? && @parent_genres.any? %>
     <div class="form-group">
       <label>Géneros</label>
+
       <div class="genre-selector" data-controller="genre-selector">
         <div class="genre-search">
-          <input type="text"
-                 placeholder="Buscar género..."
-                 autocomplete="off"
-                 data-genre-selector-target="searchInput"
-                 data-action="input->genre-selector#search">
+          <input
+            type="text"
+            placeholder="Buscar género..."
+            autocomplete="off"
+            data-genre-selector-target="searchInput"
+            data-action="input->genre-selector#search"
+          >
         </div>
+
         <div class="genre-sections">
           <% @parent_genres.each do |parent| %>
-            <div class="genre-section" data-genre-selector-target="parentSection">
-              <button type="button" class="genre-section-header" data-action="click->genre-selector#toggle">
+            <div
+              class="genre-section"
+              data-genre-selector-target="parentSection"
+            >
+              <button
+                type="button"
+                class="genre-section-header"
+                data-action="click->genre-selector#toggle"
+              >
                 <span class="genre-section-title"><%= parent.name %></span>
                 <span class="genre-section-icon">▸</span>
               </button>
+
               <div class="genre-section-content">
                 <% if parent.children.any? %>
                   <% parent.children.sorted.each do |child| %>
-                    <label class="genre-option" data-genre-selector-target="option">
+                    <label
+                      class="genre-option"
+                      data-genre-selector-target="option"
+                    >
                       <%= form.check_box :genre_ids,
                           { multiple: true, checked: book.genre_ids.include?(child.id) },
                           child.id,
                           nil %>
+
                       <span><%= child.name %></span>
                     </label>
                   <% end %>
                 <% else %>
-                  <label class="genre-option" data-genre-selector-target="option">
+                  <label
+                    class="genre-option"
+                    data-genre-selector-target="option"
+                  >
                     <%= form.check_box :genre_ids,
                         { multiple: true, checked: book.genre_ids.include?(parent.id) },
                         parent.id,
                         nil %>
+
                     <span><%= parent.name %></span>
                   </label>
                 <% end %>
@@ -68,12 +95,18 @@
           <% end %>
         </div>
       </div>
+
       <small><%= link_to "Gestionar géneros", genres_path %></small>
     </div>
   <% else %>
     <div class="form-group">
       <label>Géneros</label>
-      <p class="no-genres">No hay géneros definidos aún. <%= link_to "Crear géneros", genres_path %> para categorizar tus libros.</p>
+
+      <p class="no-genres">
+        No hay géneros definidos aún.
+        <%= link_to "Crear géneros", genres_path %> para categorizar tus
+        libros.
+      </p>
     </div>
   <% end %>
 
