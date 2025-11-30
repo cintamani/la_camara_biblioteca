@@ -1,9 +1,11 @@
 <div class="books-header">
   <h1>Archivo de Libros</h1>
 
-  <div class="header-actions">
-    <%= link_to "Añadir Libro", new_book_path, class: "btn btn-primary" %>
-  </div>
+  <% if logged_in? %>
+    <div class="header-actions">
+      <%= link_to "Añadir Libro", new_book_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </div>
 
 <div class="search-section">
@@ -60,14 +62,16 @@
           <% end %>
         </div>
 
-        <div class="book-actions">
-          <%= link_to "Editar", edit_book_path(book), class: "btn btn-small" %>
+        <% if logged_in? %>
+          <div class="book-actions">
+            <%= link_to "Editar", edit_book_path(book), class: "btn btn-small" %>
 
-          <%= button_to "Eliminar", book,
-              method: :delete,
-              class: "btn btn-small btn-danger",
-              data: { turbo_confirm: "¿Estás seguro de que quieres eliminar este libro?" } %>
-        </div>
+            <%= button_to "Eliminar", book,
+                method: :delete,
+                class: "btn btn-small btn-danger",
+                data: { turbo_confirm: "¿Estás seguro de que quieres eliminar este libro?" } %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -84,7 +88,7 @@
         Intenta ajustar los criterios de búsqueda o
         <%= link_to "ver todos los libros", books_path %>.
       </p>
-    <% else %>
+    <% elsif logged_in? %>
       <p>
         <%= link_to "Añade tu primer libro", new_book_path %> para comenzar.
       </p>

@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # Authentication
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create", as: :session
+  delete "logout", to: "sessions#destroy"
+
   # Book archive routes
   resources :books do
     collection do

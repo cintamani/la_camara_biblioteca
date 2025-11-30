@@ -35,11 +35,13 @@
   </div>
 
   <div class="book-actions">
-    <%= link_to "Editar", edit_book_path(@book), class: "btn btn-primary" %>
-    <%= button_to "Eliminar", @book,
-        method: :delete,
-        class: "btn btn-danger",
-        data: { turbo_confirm: "¿Estás seguro de que quieres eliminar este libro del archivo?" } %>
+    <% if logged_in? %>
+      <%= link_to "Editar", edit_book_path(@book), class: "btn btn-primary" %>
+      <%= button_to "Eliminar", @book,
+          method: :delete,
+          class: "btn btn-danger",
+          data: { turbo_confirm: "¿Estás seguro de que quieres eliminar este libro del archivo?" } %>
+    <% end %>
     <%= link_to "Volver al Archivo", books_path, class: "btn btn-secondary" %>
   </div>
 </div>

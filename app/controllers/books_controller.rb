@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
   before_action :load_genres, only: %i[new create edit update]
+  before_action :require_login, except: %i[index show]
 
   def index
     @books = Book.includes(:genres)

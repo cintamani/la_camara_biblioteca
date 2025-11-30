@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_27_183348) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_30_104422) do
   create_table "book_genres", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.datetime "created_at", null: false
@@ -36,6 +36,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_27_183348) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_genres_on_name", unique: true
     t.index ["parent_id"], name: "index_genres_on_parent_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "password_digest"
+    t.datetime "updated_at", null: false
+    t.string "username"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "book_genres", "books"

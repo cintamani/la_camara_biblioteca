@@ -32,6 +32,11 @@
       <nav class="site-nav">
         <%= link_to "Libros", books_path %>
         <%= link_to "Géneros", genres_path %>
+        <% if logged_in? %>
+          <%= button_to "Salir", logout_path, method: :delete, class: "nav-logout" %>
+        <% else %>
+          <%= link_to "Entrar", login_path %>
+        <% end %>
       </nav>
     </header>
 

@@ -1,5 +1,6 @@
 class GenresController < ApplicationController
   before_action :set_genre, only: %i[edit update destroy]
+  before_action :require_login, except: %i[index]
 
   def index
     @parent_genres = Genre.roots.sorted.includes(:children)
