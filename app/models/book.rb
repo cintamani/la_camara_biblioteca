@@ -2,7 +2,10 @@ class Book < ApplicationRecord
   has_many :book_genres, dependent: :destroy
   has_many :genres, through: :book_genres
 
+  enum :status, { in: "in", out: "out" }, default: :in
+
   validates :title, presence: true
+  validates :borrower_name, presence: { message: "es obligatorio cuando el libro está prestado" }, if: :out?
   validates :genres, presence: { message: "debe seleccionar al menos un género" }
   validate :isbns_are_unique_across_books
 

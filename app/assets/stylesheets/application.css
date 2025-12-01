@@ -89,7 +89,14 @@ body {
 
 .site-nav {
   display: flex;
+  align-items: center;
   gap: 1.5rem;
+}
+
+.site-nav form {
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 
 .site-nav a {
@@ -492,6 +499,48 @@ a:hover {
 
 .book-timestamps p {
   margin: 0.25rem 0;
+}
+
+/* Book Status */
+.book-status {
+  margin: 0.5rem 0;
+}
+
+.book-status.in strong {
+  color: var(--emerald);
+}
+
+.book-status.out strong {
+  color: var(--danger-color);
+}
+
+.book-status .borrower {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.book-status-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0.25rem 0;
+}
+
+.book-status-badge.in {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.book-status-badge.out {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.book-status-badge .borrower {
+  font-weight: 400;
+  font-style: italic;
 }
 
 /* Genre Management */

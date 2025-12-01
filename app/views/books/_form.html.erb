@@ -30,6 +30,22 @@
     <%= form.text_field :isbn %>
   </div>
 
+  <div class="form-group">
+    <%= form.label :status, "Estado" %>
+    <%= form.select :status, [["Disponible", "in"], ["Prestado", "out"]], {}, { data: { controller: "book-status", action: "change->book-status#toggle" } } %>
+  </div>
+
+  <div
+    class="form-group"
+    data-book-status-target="borrowerField"
+    style="<%= book.in? ? 'display: none;' : '' %>"
+  >
+    <%= form.label :borrower_name, "Nombre del prestatario" %>
+    <%= form.text_field :borrower_name, placeholder: "¿Quién tiene el libro?" %>
+  </div>
+
+  <div class="form-group"><%= "#{book.title}, #{book.author}" %></div>
+
   <% if @parent_genres.present? && @parent_genres.any? %>
     <div class="form-group">
       <label>Géneros</label>

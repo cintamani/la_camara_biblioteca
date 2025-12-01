@@ -51,6 +51,13 @@
             </p>
           <% end %>
 
+          <p class="book-status-badge <%= book.status %>">
+            <%= book.in? ? "Disponible" : "Prestado" %>
+            <% if book.out? && book.borrower_name.present? %>
+              <span class="borrower">a <%= book.borrower_name %></span>
+            <% end %>
+          </p>
+
           <% if book.genres.any? %>
             <div class="genres">
               <% book.genres.each do |genre| %>

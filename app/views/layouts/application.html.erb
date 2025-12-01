@@ -33,6 +33,7 @@
         <%= link_to "Libros", books_path %>
         <%= link_to "Géneros", genres_path %>
         <% if logged_in? %>
+          <%= link_to "Añadir Libro", new_book_path %>
           <%= button_to "Salir", logout_path, method: :delete, class: "nav-logout" %>
         <% else %>
           <%= link_to "Entrar", login_path %>
