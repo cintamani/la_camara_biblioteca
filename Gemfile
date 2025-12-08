@@ -58,4 +58,4 @@ end
 gem "dockerfile-rails", ">= 1.7", :group => :development
 
 # Pagination
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 43.2"
