@@ -11,6 +11,7 @@
           <%= @book.isbns_display %>
         </p>
       <% end %>
+      <p class="copies">Copias: <strong><%= @book.copies %></strong></p>
       <p class="book-status <%= @book.status %>">
         Estado: <strong><%= @book.in? ? "Disponible" : "Prestado" %></strong>
         <% if @book.out? && @book.borrower_name.present? %>

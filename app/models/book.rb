@@ -89,6 +89,16 @@ class Book < ApplicationRecord
     isbns&.join(", ")
   end
 
+  # Getter for comma-separated ISBNs (for form)
+  def isbns_list
+    isbns_display
+  end
+
+  # Setter for comma-separated ISBNs (for form)
+  def isbns_list=(value)
+    self.isbns = value.to_s.split(",").map { |isbn| self.class.normalize_isbn(isbn) }.reject(&:blank?)
+  end
+
   # Setter for single ISBN (for form compatibility)
   def isbn=(value)
     add_isbn(value)

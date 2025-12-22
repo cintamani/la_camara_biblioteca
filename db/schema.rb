@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_30_111149) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_22_182019) do
   create_table "book_genres", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.datetime "created_at", null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_30_111149) do
   create_table "books", force: :cascade do |t|
     t.string "author"
     t.string "borrower_name"
+    t.integer "copies", default: 1, null: false
     t.datetime "created_at", null: false
     t.string "isbns"
     t.string "status", default: "in", null: false

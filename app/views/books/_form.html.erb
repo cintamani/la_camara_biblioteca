@@ -26,8 +26,14 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :isbn, "ISBN" %>
-    <%= form.text_field :isbn %>
+    <%= form.label :isbns_list, "ISBNs" %>
+    <%= form.text_field :isbns_list, placeholder: "Separar múltiples ISBNs con comas" %>
+    <small>Puedes añadir varios ISBNs separados por comas</small>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :copies, "Copias" %>
+    <%= form.number_field :copies, min: 1, value: book.copies || 1 %>
   </div>
 
   <div class="form-group">
@@ -43,8 +49,6 @@
     <%= form.label :borrower_name, "Nombre del prestatario" %>
     <%= form.text_field :borrower_name, placeholder: "¿Quién tiene el libro?" %>
   </div>
-
-  <div class="form-group"><%= "#{book.title}, #{book.author}" %></div>
 
   <% if @parent_genres.present? && @parent_genres.any? %>
     <div class="form-group">

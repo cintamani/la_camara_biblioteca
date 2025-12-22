@@ -51,6 +51,10 @@
             </p>
           <% end %>
 
+          <% if book.copies > 1 %>
+            <p class="copies"><%= book.copies %> copias</p>
+          <% end %>
+
           <p class="book-status-badge <%= book.status %>">
             <%= book.in? ? "Disponible" : "Prestado" %>
             <% if book.out? && book.borrower_name.present? %>

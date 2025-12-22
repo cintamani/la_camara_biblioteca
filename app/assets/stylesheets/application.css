@@ -392,6 +392,13 @@ a:hover {
   margin: 0.25rem 0;
 }
 
+.book-info .copies,
+.copies {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0.25rem 0;
+}
+
 .book-actions {
   display: flex;
   gap: 0.5rem;
