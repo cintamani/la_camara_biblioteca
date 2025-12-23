@@ -27,30 +27,34 @@ class BooksController < ApplicationController
   end
 
   def create
-    isbn = book_params[:isbn]
+    # Get ISBNs from either isbns_list or isbn param
+    new_isbns = extract_isbns_from_params
 
-    # Check if a book with this ISBN already exists
-    if isbn.present?
-      existing_by_isbn = Book.find_by_isbn(isbn)
-      if existing_by_isbn
-        redirect_to existing_by_isbn, notice: "Este ISBN ya está registrado en el libro '#{existing_by_isbn.title}'."
-        return
+    # Check if a book with any of these ISBNs already exists
+    if new_isbns.any?
+      new_isbns.each do |isbn|
+        existing_by_isbn = Book.find_by_isbn(isbn)
+        if existing_by_isbn
+          redirect_to existing_by_isbn, notice: "Este ISBN ya está registrado en el libro '#{existing_by_isbn.title}'."
+          return
+        end
       end
     end
 
     # Check for duplicate by title and author
     existing = Book.find_duplicate(book_params[:title], book_params[:author])
 
-    if existing && isbn.present?
-      # Add the ISBN to the existing book
-      existing.add_isbn(isbn)
+    if existing && new_isbns.any?
+      # Add the ISBNs to the existing book
+      new_isbns.each { |isbn| existing.add_isbn(isbn) }
       # Merge genres if any
       if book_params[:genre_ids].present?
         new_genre_ids = book_params[:genre_ids].map(&:to_i) - existing.genre_ids
         existing.genre_ids += new_genre_ids
       end
       existing.save!
-      redirect_to existing, notice: "Este libro ya existía. Se ha añadido el nuevo ISBN (#{isbn}) al registro existente."
+      added_isbns = new_isbns.join(", ")
+      redirect_to existing, notice: "Este libro ya existía. Se ha añadido el ISBN (#{added_isbns}) al registro existente."
       return
     end
 
@@ -135,5 +139,21 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :author, :isbn, :isbns_list, :copies, :genre_list, :status, :borrower_name, genre_ids: [])
+  end
+
+  def extract_isbns_from_params
+    isbns = []
+
+    # From isbns_list (comma-separated)
+    if book_params[:isbns_list].present?
+      isbns += book_params[:isbns_list].split(",").map { |i| Book.normalize_isbn(i) }.reject(&:blank?)
+    end
+
+    # From single isbn param (for backwards compatibility)
+    if book_params[:isbn].present?
+      isbns << Book.normalize_isbn(book_params[:isbn])
+    end
+
+    isbns.uniq
   end
 end
