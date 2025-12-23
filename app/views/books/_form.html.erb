@@ -25,6 +25,7 @@
     <%= form.text_field :author %>
   </div>
 
+  <%= "#{book.title}, #{book.author}"  %>
   <div class="form-group">
     <%= form.label :isbns_list, "ISBNs" %>
     <%= form.text_field :isbns_list, placeholder: "Separar múltiples ISBNs con comas" %>
